@@ -26,7 +26,23 @@
             less.modifyVars({
                 '@debug': 'true'
             });
-
+            
+            
+            
+            var body = document.querySelector("body");
+            for(var i=0;i<10;++i){
+                var button = document.createElement("button");
+                button.innerHTML = 'button' + i;
+                button.classList.add("btn");
+                body.insertAdjacentHTML("beforeend",button.outerHTML);                  
+            }
+            var buttons = document.querySelectorAll(".btn");
+            for(var i=0;i<buttons.length;++i){
+                buttons[i].addEventListener("click",function(e){
+                    var button = e.target;
+                    alert(button.innerHTML);
+                });
+            }
         };
     </script>
     <!--less-->
@@ -37,6 +53,7 @@
 <body ng-controller="ngController">
     <!-- tag -->
     
+        
 </body>
 
 </html>
