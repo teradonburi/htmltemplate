@@ -1,0 +1,283 @@
+@debug: false;
+
+/*********** color ************/
+
+@base_color: #ffffff;// ベースカラー:75%（背景色）
+@main_color: #0088ff; // メインカラー:20%（テーマ色）
+@accent_color:spin(@main_color, 180);// アクセントカラー:5%（メインカラー色相の逆位相、もしくは黒、白などメインカラーに対して浮く色）
+@support_color:#e0e0e0; // ４色目としてグレーなども使いやすい
+
+
+
+/*********** layout ************/
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* flexbox layout */
+@header_height:7rem;
+@footer_height:3rem;
+@sidebar_width:15rem;
+.box{
+    min-height: 100vh;
+    height: 100%; /* for IE11 */
+    .flex-display();
+    .flex-direction(column);
+}
+.header{
+    height: @header_height;
+    background: @support_color;
+}
+.wrapper{
+    .flex-display();
+    .flex(1);
+    height: 100%; 
+}
+.left{
+    width: @sidebar_width;
+    background: @main_color;
+}
+.contents{
+    .flex(1);
+    background: @base_color;
+}
+.right{
+    width: @sidebar_width;
+    background: @main_color;
+}
+.footer{
+    height: @footer_height;
+    background: @support_color;
+}
+
+
+/* flexbox masonry */
+@masonry-width:33.3%;
+@masonry-height: 100vw;
+.masonry{
+    .flex-display();
+    .flex-direction(column); // 縦並び
+    .justify-content(flex-start); // 左寄せ 
+    .flex-wrap(wrap); // 折り返し
+    height: @masonry-height; // vw=ビューポートの横幅、３列になるように調整 
+
+    .item{
+        width: @masonry-width; // 3列
+        img{
+            width: 100%;
+        }
+    }
+}
+
+/* listのアイコン消して詰める */
+ul{
+    padding: 0rem;
+
+    li{
+        list-style: none;
+        margin: 0rem;
+    }
+}
+
+
+/* レスポンシブレイアウト */
+@media screen and (max-width: 768px) {
+    .responsive {
+        .flex-direction(column);
+    }
+}
+
+
+
+
+
+/*********** mix-in **************/
+
+
+// flexbox表示適用
+.flex-display{
+    display: flex; 
+    display: -webkit-flex; 
+    display: -ms-flex; 
+}
+// flexbox整列方向
+.flex-direction(@direct:column){
+    flex-direction: @direct;
+    -webkit-flex-direction: @direct;
+    -ms-flex-direction: @direct;
+}
+// flexbox内部要素整列
+.justify-content(@justify:space-around){
+    justify-content:@justify;
+    -webkit-justify-content:@justify;
+    -ms-justify-content:@justify;
+}
+// flexboxサイズ(割合)
+.flex(@size:1){
+    flex: @size;
+    -webkit-flex: @size;
+    -ms-flex: @size;
+}
+// flexbox折り返し
+.flex-wrap(@wrap:wrap){
+    flex-wrap: @wrap; 
+    -webkit-flex-wrap: @wrap; 
+    -ms-flex-wrap: @wrap; 
+}
+
+
+// 透明度
+.opacity(@val: 0.5) {
+    opacity: @val;
+    -webkit-opacity: @val;
+    -moz-opacity: @val;
+    -ms-opacity: @val;
+    -o-opacity: @val;
+}
+
+// クリッピング
+.clip-path(@path) {
+    clip-path: @path;
+    -webkit-clip-path: @path;
+    -moz-clip-path: @path;
+    -ms-clip-path: @path;
+    -o-clip-path: @path;
+}
+
+// 角丸
+.border-radius (@radius) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -o-border-radius: @radius;
+    -ms-border-radius: @radius;
+}
+
+// ボックス影
+.box-shadow(@props) {
+    -webkit-box-shadow: @props;
+    -moz-box-shadow: @props;
+    -o-box-shadow: @props;
+    -ms-box-shadow: @props;
+    box-shadow: @props;
+}
+
+// テキスト影
+.text-shadow(@props) {
+    text-shadow: @props;
+    -webkit-text-shadow: @props;
+    -moz-text-shadow: @props;
+    -o-text-shadow: @props;
+    -ms-text-shadow: @props;
+}
+
+// グラデーションテキスト影
+.text-shadow-loop(@x, @y, @blur, @color, @i: 1, @max: 0, @p: '') {
+    & when (@i >=1) {
+        & when (@p ='') {
+            @param: @x @y @blur @color;
+            @mx: @i;
+            .text-shadow-loop(@x, @y, @blur, desaturate(@color, 20%), @i - 1, @mx, @param);
+        }
+        & when not(@p ='') {
+            @param: @p,
+            @x @y @blur @color;
+            .text-shadow-loop(@x*(@i/@max), @y*(@i/@max), @blur*(@i/@max), desaturate(@color, 20%), @i - 1, @max, @param);
+        }
+    }
+    & when (@i =0) {
+        .text-shadow(@p);
+    }
+}
+
+// 線形グラデーション
+.linear-gradient(...) {
+    @props: ~`"@{arguments}".replace(/\]|\[/g, '')`;
+    background: linear-gradient(@props);
+    background: -webkit-linear-gradient(@props);
+    background: -moz-linear-gradient(@props);
+    background: -ms-linear-gradient(@props);
+    background: -o-linear-gradient(@props);
+}
+
+// 円形グラデーション
+.radial-gradient(...) {
+    @props: ~`"@{arguments}".replace(/\]|\[/g, '')`;
+    background: radial-gradient(@props);
+    background: -webkit-radial-gradient(@props);
+    background: -moz-radial-gradient(@props);
+    background: -ms-radial-gradient(@props);
+    background: -o-radial-gradient(@props);
+}
+
+// 時間変位
+.transition (@transition) {
+    transition: @transition;
+    -webkit-transition: @transition;
+    -moz-transition: @transition;
+    -ms-transition: @transition;
+    -o-transition: @transition;
+}
+
+// アニメーション
+.animation(@arguments) {
+    animation: @arguments;
+    -moz-animation: @arguments;
+    -webkit-animation: @arguments;
+    -o-animation: @arguments;
+    -ms-animation: @arguments;
+}
+
+// キーフレーム
+.keyframes(@name, @arguments) {
+    @keyframes @name {
+        @arguments();
+    }
+    @-moz-keyframes @name {
+        @arguments();
+    }
+    @-webkit-keyframes @name {
+        @arguments();
+    }
+    @-o-keyframes @name {
+        @arguments();
+    }
+    @-ms-keyframes @name {
+        @arguments();
+    }
+}
+
+// トランスフォーム
+.transform(@string) {
+    transform: @string;
+    -webkit-transform: @string;
+    -moz-transform: @string;
+    -ms-transform: @string;
+    -o-transform: @string;
+}
+
+// スケール
+.scale (@factor) {
+    transform: scale(@factor);
+    -webkit-transform: scale(@factor);
+    -moz-transform: scale(@factor);
+    -ms-transform: scale(@factor);
+    -o-transform: scale(@factor);
+}
+
+// フィルター
+.filter(@string) {
+    filter: @string;
+    -webkit-filter: @string;
+    -moz-filter: @string;
+    -ms-filter: @string;
+    -o-filter: @string;
+}

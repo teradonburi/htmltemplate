@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="ngApp">
+
+<head>
+    <title>title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!--AngularJS-->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular-messages.min.js"></script>
+    <!--UI BootStrap-->
+    <script src="lib/ui-bootstrap-tpls.min.js"></script>
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <!--lodash -->
+    <script src="lib/lodash.min.js"></script>
+
+    <script>
+        angular.module("ngApp", ['ngMessages', 'ngAnimate', 'ui.bootstrap']);
+        angular.module("ngApp").controller("ngController", ['$scope', function ($scope) {
+
+}]);
+
+        window.onload = function (e) {
+            // dynamic modify less variables
+            less.modifyVars({
+                '@debug': 'true'
+            });
+
+        };
+    </script>
+    <!--less-->
+    <link rel="stylesheet/less" type="text/css" href="main.less">
+    <script src="lib/less.min.js"></script>
+</head>
+
+<body ng-controller="ngController">
+    <!-- tag -->
+    
+</body>
+
+</html>
