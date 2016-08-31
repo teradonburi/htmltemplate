@@ -34,7 +34,9 @@ body {
 }
 .header{
     height: @header_height;
-    background: @support_color;
+    & when (@debug=true) {
+        background: @support_color;
+    }
 }
 .wrapper{
     .flex-display();
@@ -43,19 +45,27 @@ body {
 }
 .left{
     width: @sidebar_width;
-    background: @main_color;
+    & when (@debug=true) {
+        background: @main_color;
+    }
 }
 .contents{
     .flex(1);
-    background: @base_color;
+    & when (@debug=true) {
+        background: @base_color;
+    }
 }
 .right{
     width: @sidebar_width;
-    background: @main_color;
+    & when (@debug=true) {
+        background: @main_color;
+    }
 }
 .footer{
     height: @footer_height;
-    background: @support_color;
+    & when (@debug=true) {
+        background: @support_color;
+    }
 }
 
 
