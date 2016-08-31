@@ -5,30 +5,58 @@
     <title>title</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <!--AngularJS-->
-    <script type="text/javascript" src="lib/angular.min.js"></script>
-    <script type="text/javascript" src="lib/angular-animate.min.js"></script>
-    <script type="text/javascript" src="lib/angular-messages.min.js"></script>
-    <!--UI BootStrap-->
-    <script type="text/javascript" src="lib/ui-bootstrap-tpls.min.js"></script>
-    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    
     <!--lodash -->
     <script type="text/javascript" src="lib/lodash.min.js"></script>
+
+    <!-- vue.js -->
+    <script type="text/javascript" src="lib/vue.min.js"></script>
+
     <!-- WebComponents -->
-    <script type="text/javascript" src="lib/webcomponents.js"></script>
+    <script type="text/javascript" src="lib/webcomponents/webcomponents.js"></script>
 
+    <link rel="import" href="ui/dropmenu.html">
+    
     <script>
-        angular.module("ngApp", ['ngMessages', 'ngAnimate', 'ui.bootstrap']);
-        angular.module("ngApp").controller("ngController", ['$scope', function ($scope) {
-
-}]);
-
+        
         window.onload = function (e) {
             // dynamic modify less variables
             less.modifyVars({
                 '@debug': true
             });
-                        
+                            
+//            var demo = new Vue({
+//              el: '#demo',
+//              data: {
+//                message: 'Hello Vue.js!'
+//              }
+//            });
+//            
+//            Vue.elementDirective('x-menu', {
+//              // 標準のディレクティブのような同じ API
+//              bind: function () {
+//                // this.el を操作 ...
+//              }
+//            });
+//
+//            Vue.elementDirective('x-submenu', {
+//              // 標準のディレクティブのような同じ API
+//              bind: function () {
+//                // this.el を操作 ...
+//              }
+//            });
+//            
+//            var Child = Vue.extend({
+//                template: '<div>A custom component!</div>'
+//            });
+//
+//              new Vue({
+//                el: '#app',
+//                components: {
+//                  'my-component': Child,
+//                }
+//              });
+
         };
     </script>
     <!--less-->
@@ -37,7 +65,23 @@
 </head>    
 <body ng-controller="ngController">
     <!-- tag -->
-   
+<!--
+    <x-dropmenu id="demo">
+        <x-menu data-title="menu1">
+            <x-submenu data-url="http://google.co.jp" >{{message}}</x-submenu>
+            <x-submenu data-url="#">submenu2</x-submenu>
+            <x-submenu data-url="#">submenu3</x-submenu>
+        </x-menu>
+        <x-menu data-title="menu2">
+            <x-submenu data-url="http://google.co.jp">submenu4</x-submenu>
+        </x-menu>
+        <x-menu data-title="menu3">
+            <x-submenu data-url="http://google.co.jp">submenu5</x-submenu>
+            <x-submenu data-url="http://google.co.jp">submenu6</x-submenu>
+        </x-menu>
+    </x-dropmenu>
+-->
+  
             
 </body>
 </html>

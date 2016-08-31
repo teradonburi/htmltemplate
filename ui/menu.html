@@ -1,0 +1,96 @@
+<link rel="import" href="submenu.html">
+<template id="menu">
+    <style type="text/css">
+        /* css */
+        :host li{
+            list-style: none;
+            text-align: center;
+           
+        }
+        :host a{           
+            background: #8a9b0f;
+            display: block;
+            padding: 0.5rem;
+            color: black;
+            text-decoration: none;
+            border-radius: 0.5rem;
+        }
+        :host a:hover + ul{           
+            visibility: visible;
+        }
+        :host ul:hover{           
+            visibility: visible;
+        }
+        :host ul{
+            visibility:hidden;
+            padding: 0rem;
+            margin: 0rem;
+        }
+        
+        ::content {
+
+        }
+    </style>
+    
+    <li>
+        <a href="#"></a>
+        <!-- 子要素格納用contentタグ -->
+        <ul class="sub">
+            <content></content>
+        </ul>
+        <!-- DOM -->        
+    </li>
+</template>
+
+<script>
+    (function(){
+        var ownerDocument = document.currentScript.ownerDocument;    
+        var proto = Object.create(HTMLElement.prototype, {
+            // DOM生成時のコールバック
+            createdCallback: {
+                value: function() {
+                    var t = ownerDocument.querySelector('#menu');
+                    var clone = document.importNode(t.content, true);
+                    // Shadow DOMに追加
+                    this.shadowRoot = this.createShadowRoot();
+                    this.shadowRoot.appendChild(clone);
+                }
+            },
+            // contentに子要素追加されたときのイベント
+            attachedCallback: {
+                value:function(){
+                    // 内部DOM取得
+                    //var dom = this.shadowRoot.querySelector("DOM");
+
+                    // DOMのイベント追加など
+                    // カスタム属性値取得    
+                    var title = this.getAttribute('data-title');
+                    var a = this.shadowRoot.querySelector("a");
+                    a.innerHTML = title;
+                                        
+                }
+            },
+            // contentから削除時のイベント
+            detachedCallback:{
+                value:function(){
+                    // 内部DOM取得
+                    //var dom = this.shadowRoot.querySelector("DOM");
+
+                }
+            },
+            // 属性値が変更されたときのイベント
+            attributeChangedCallback:{
+                value:function(){
+                    // カスタム属性値取得    
+                    var title = this.getAttribute('data-title');
+                    var a = this.shadowRoot.querySelector("a");
+                    a.innerHTML = title;
+                }
+            }
+
+        });
+        // x-tagとしてCustom Elements登録
+        document.registerElement('x-menu', {prototype: proto});
+    })();
+
+</script>

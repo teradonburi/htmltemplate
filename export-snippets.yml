@@ -2907,7 +2907,7 @@
                 width: 120px;
                 height: auto;
                 background: red;
-                content: "New";\\t/* 表示するテキスト */
+                content: "New";\\\\t/* 表示するテキスト */
                 text-align: center;
                 color: #fff;
                 font-family: 'Arial';
@@ -3561,9 +3561,9 @@
         </div>
 
 - scope: html
-  trigger: template
-  description: templateタグ
-  mTime: 1472634993498
+  trigger: webcomponent
+  description: webcomponent
+  mTime: 1472653759050
   text: |
         <template id="${1:tag}">
             <style type="text/css">
@@ -3580,52 +3580,52 @@
             <!-- DOM -->
         </template>
         
-        <script>
-        var ownerDocument = document.currentScript.ownerDocument;    
-        var proto = Object.create(HTMLElement.prototype, {
-            // DOM生成時のコールバック
-            createdCallback: {
-                value: function() {
-                    var t = ownerDocument.querySelector('#${1:tag}');
-                    var clone = document.importNode(t.content, true);
-                    // Shadow DOMに追加
-                    this.shadowRoot = this.createShadowRoot();
-                    this.shadowRoot.appendChild(clone);
-                }
-            },
-            // contentに子要素追加されたときのイベント
-            attachedCallback: {
-                value:function(){
-                    // 内部DOM取得
-                    //var dom = this.shadowRoot.querySelector("DOM");
-                    
-                    // DOMのイベント追加など
-                    
-                }
-            },
-            // contentから削除時のイベント
-            detachedCallback:{
-                value:function(){
-                    // 内部DOM取得
-                    //var dom = this.shadowRoot.querySelector("DOM");
-        
-                }
-            },
-            // 属性値が変更されたときのイベント
-            attributeChangedCallback:{
-                value:function(){
-                    // カスタム属性値取得
-                    //var attr = this.getAttribute('data-attr');
-        
-                }
-            }
+        <script type="text/javascript">
+        (function(){
+            var ownerDocument = document.currentScript.ownerDocument;    
+            var proto = Object.create(HTMLElement.prototype, {
+                // DOM生成時のコールバック
+                createdCallback: {
+                    value: function() {
+                        var t = ownerDocument.querySelector('#${1:tag}');
+                        var clone = document.importNode(t.content, true);
+                        // Shadow DOMに追加
+                        this.shadowRoot = this.createShadowRoot();
+                        this.shadowRoot.appendChild(clone);
+                    }
+                },
+                // contentに子要素追加されたときのイベント
+                attachedCallback: {
+                    value:function(){
+                        // 内部DOM取得
+                        //var dom = this.shadowRoot.querySelector("DOM");
+                        
+                        // DOMのイベント追加など
+                        
+                    }
+                },
+                // contentから削除時のイベント
+                detachedCallback:{
+                    value:function(){
+                        // 内部DOM取得
+                        //var dom = this.shadowRoot.querySelector("DOM");
             
-        });
-        // x-tagとしてCustom Elements登録
-        document.registerElement('x-${1:tag}', {prototype: proto});
+                    }
+                },
+                // 属性値が変更されたときのイベント
+                attributeChangedCallback:{
+                    value:function(){
+                        // カスタム属性値取得
+                        //var attr = this.getAttribute('data-attr');
+            
+                    }
+                }
+                
+            });
+            // x-tagとしてCustom Elements登録
+            document.registerElement('x-${1:tag}', {prototype: proto});
+        })();
         </script>
-        
-        
 
 - trigger: import
   description: HTML Import
@@ -3633,6 +3633,13 @@
   mTime: 1472631320266
   text: |
         <link rel="import" href="${1:webcomponent}.html">
+
+- trigger: dummy_img
+  description: image mock
+  scope: html
+  mTime: 1472645815601
+  text: |
+        https://unsplash.it/${1:300}/${2:300}?random
 
 - trigger: c
   description: 文字色
@@ -3924,7 +3931,7 @@
   mTime: 1462153170619
   text: |
         .linear-gradient(...){
-            @props: ~`"@{arguments}".replace(/\\\\]|\\\\[/g, '')`;
+            @props: ~`"@{arguments}".replace(/\\\\\\\\]|\\\\\\\\[/g, '')`;
             background:linear-gradient(@props);
             background:-webkit-linear-gradient(@props);
             background:-moz-linear-gradient(@props);
@@ -3945,7 +3952,7 @@
   mTime: 1462153065576
   text: |
         .radial-gradient(...){
-            @props: ~`"@{arguments}".replace(/\\\\]|\\\\[/g, '')`;
+            @props: ~`"@{arguments}".replace(/\\\\\\\\]|\\\\\\\\[/g, '')`;
             background: radial-gradient(@props);
             background: -webkit-radial-gradient(@props);
             background: -moz-radial-gradient(@props);
@@ -4352,7 +4359,7 @@
         
         // ボックス影
         .box-shadow(...) {
-            @props: ~`"@{arguments}".replace(/\\\\]|\\\\[/g, '')`;
+            @props: ~`"@{arguments}".replace(/\\\\\\\\]|\\\\\\\\[/g, '')`;
             box-shadow: @props;
             -webkit-box-shadow: @props;
             -moz-box-shadow: @props;
@@ -4362,7 +4369,7 @@
         
         // テキスト影
         .text-shadow(...) {
-            @props: ~`"@{arguments}".replace(/\\\\]|\\\\[/g, '')`;
+            @props: ~`"@{arguments}".replace(/\\\\\\\\]|\\\\\\\\[/g, '')`;
             text-shadow: @props;
             -webkit-text-shadow: @props;
             -moz-text-shadow: @props;
@@ -4391,7 +4398,7 @@
         
         // 線形グラデーション
         .linear-gradient(...) {
-            @props: ~`"@{arguments}".replace(/\\\\]|\\\\[/g, '')`;
+            @props: ~`"@{arguments}".replace(/\\\\\\\\]|\\\\\\\\[/g, '')`;
             background: linear-gradient(@props);
             background: -webkit-linear-gradient(@props);
             background: -moz-linear-gradient(@props);
@@ -4401,7 +4408,7 @@
         
         // 円形グラデーション
         .radial-gradient(...) {
-            @props: ~`"@{arguments}".replace(/\\\\]|\\\\[/g, '')`;
+            @props: ~`"@{arguments}".replace(/\\\\\\\\]|\\\\\\\\[/g, '')`;
             background: radial-gradient(@props);
             background: -webkit-radial-gradient(@props);
             background: -moz-radial-gradient(@props);
@@ -4517,7 +4524,7 @@
   scope: perl
   mTime: 1470962110258
   text: |
-        print "${1:output}\\
+        print "${1:output}\\\\
         ";
 
 - trigger: if

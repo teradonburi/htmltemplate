@@ -1,0 +1,78 @@
+<template id="submenu">
+    <style type="text/css">
+        /* css */
+        :host li{
+            list-style: none;
+            margin: 0rem;
+            padding: 0.5rem;
+            text-align: center;
+            background: #9aab1f;
+            border-radius: 0.5rem;
+        }
+        :host a{
+            color: black;
+            text-decoration: none;
+        }
+        ::content {
+            
+        }
+    </style>
+    <!-- 子要素格納用contentタグ -->
+    <li>
+        <a href="#"><content></content></a>        
+    </li>
+
+    <!-- DOM -->
+</template>
+
+<script type="text/javascript">
+(function(){
+    var ownerDocument = document.currentScript.ownerDocument;    
+    var proto = Object.create(HTMLElement.prototype, {
+        // DOM生成時のコールバック
+        createdCallback: {
+            value: function() {
+                var t = ownerDocument.querySelector('#submenu');
+                var clone = document.importNode(t.content, true);
+                // Shadow DOMに追加
+                this.shadowRoot = this.createShadowRoot();
+                this.shadowRoot.appendChild(clone);
+            }
+        },
+        // contentに子要素追加されたときのイベント
+        attachedCallback: {
+            value:function(){
+                // 内部DOM取得
+                //var dom = this.shadowRoot.querySelector("DOM");
+                
+                // DOMのイベント追加など
+                var url = this.getAttribute('data-url');
+                var a = this.shadowRoot.querySelector("a");
+                a.href = url;
+            }
+        },
+        // contentから削除時のイベント
+        detachedCallback:{
+            value:function(){
+                // 内部DOM取得
+                //var dom = this.shadowRoot.querySelector("DOM");
+    
+            }
+        },
+        // 属性値が変更されたときのイベント
+        attributeChangedCallback:{
+            value:function(){
+                // カスタム属性値取得
+                //var attr = this.getAttribute('data-attr');
+    
+                var url = this.getAttribute('data-url');
+                var a = this.shadowRoot.querySelector("a");
+                a.href = url;
+            }
+        }
+        
+    });
+    // x-tagとしてCustom Elements登録
+    document.registerElement('x-submenu', {prototype: proto});
+})();
+</script>
