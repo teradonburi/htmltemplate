@@ -7,12 +7,23 @@
             padding: 0.5rem;
             text-align: center;
             background: #9aab1f;
-            border-radius: 0.5rem;
+            overflow: hidden;
+            width: var(--width, 5rem);
+        }
+        :host li:hover{
+            background: #00aa00;
         }
         :host a{
             color: black;
-            text-decoration: none;
+            text-decoration: none;    
+            overflow:hidden;
         }
+       
+        :host(:last-child) li{
+            border-bottom-left-radius: 0.5rem;            
+            border-bottom-right-radius: 0.5rem;            
+        }
+        
         ::content {
             
         }

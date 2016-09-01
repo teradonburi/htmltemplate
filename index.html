@@ -26,36 +26,12 @@
             });
                             
 //            var demo = new Vue({
-//              el: '#demo',
+//              el: 'x-dropmenu',
 //              data: {
 //                message: 'Hello Vue.js!'
 //              }
 //            });
-//            
-//            Vue.elementDirective('x-menu', {
-//              // 標準のディレクティブのような同じ API
-//              bind: function () {
-//                // this.el を操作 ...
-//              }
-//            });
-//
-//            Vue.elementDirective('x-submenu', {
-//              // 標準のディレクティブのような同じ API
-//              bind: function () {
-//                // this.el を操作 ...
-//              }
-//            });
-//            
-//            var Child = Vue.extend({
-//                template: '<div>A custom component!</div>'
-//            });
-//
-//              new Vue({
-//                el: '#app',
-//                components: {
-//                  'my-component': Child,
-//                }
-//              });
+        
 
         };
     </script>
@@ -64,9 +40,15 @@
     <script src="lib/less.min.js"></script>
 </head>    
 <body ng-controller="ngController">
+    
     <!-- tag -->
 <!--
-    <x-dropmenu id="demo">
+    <style>
+        x-dropmenu {
+            --width: 5rem;
+        }
+    </style>
+    <x-dropmenu>
         <x-menu data-title="menu1">
             <x-submenu data-url="http://google.co.jp" >{{message}}</x-submenu>
             <x-submenu data-url="#">submenu2</x-submenu>
@@ -81,7 +63,9 @@
         </x-menu>
     </x-dropmenu>
 -->
-  
+    
+    
+    
             
 </body>
 </html>

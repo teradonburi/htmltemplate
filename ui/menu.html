@@ -4,8 +4,13 @@
         /* css */
         :host li{
             list-style: none;
-            text-align: center;
-           
+            text-align: center;           
+        }
+        :host(:hover) a{
+            border-bottom-left-radius: 0rem;
+            border-bottom-right-radius: 0rem;
+            background: #00aa00;
+            display: block;
         }
         :host a{           
             background: #8a9b0f;
@@ -14,28 +19,31 @@
             color: black;
             text-decoration: none;
             border-radius: 0.5rem;
+            width: var(--width, 5rem);
         }
         :host a:hover + ul{           
-            visibility: visible;
+            display: block;
         }
         :host ul:hover{           
-            visibility: visible;
+            display: block;
         }
         :host ul{
-            visibility:hidden;
+            display: none;            
+            position: absolute;
             padding: 0rem;
-            margin: 0rem;
+            margin: 0rem; 
         }
         
-        ::content {
-
+        /* deprecated */
+        ::content /deep/ li{
+            
         }
     </style>
     
     <li>
         <a href="#"></a>
         <!-- 子要素格納用contentタグ -->
-        <ul class="sub">
+        <ul>
             <content></content>
         </ul>
         <!-- DOM -->        
