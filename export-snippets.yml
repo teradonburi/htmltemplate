@@ -369,10 +369,10 @@
 - trigger: googlemap
   description: googlemap
   scope: javascript
-  mTime: 1461680674426
+  mTime: 1473523392498
   text: |
         //<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9OCjVfg314V_OKoFt_jyu0n5h2_zpxok"></script> 
-        //<div id="map"></div>
+        //<div id="map" style="width:640px;height:480px;max-width: none !important;"></div>
         var map = null;
         // 現在地を取得
         navigator.geolocation.getCurrentPosition(
@@ -1199,6 +1199,13 @@
             var clas = Object.prototype.toString.call(obj).slice(8, -1);
             return obj !== undefined && obj !== null && clas === type;
         }
+
+- scope: javascript
+  trigger: evm
+  description: monitorEvents
+  mTime: 1473379954353
+  text: |
+        monitorEvents(${1:div,"click"});
 
 - scope: html
   trigger: module_rpg
@@ -3561,9 +3568,9 @@
         </div>
 
 - scope: html
-  trigger: webcomponent
-  description: webcomponent
-  mTime: 1472653759050
+  trigger: webcomponentV0
+  description: webcomponent V0
+  mTime: 1473379851724
   text: |
         <template id="${1:tag}">
             <style type="text/css">
@@ -3584,7 +3591,7 @@
         (function(){
             var ownerDocument = document.currentScript.ownerDocument;    
             var proto = Object.create(HTMLElement.prototype, {
-                // DOM生成時のコールバック
+                // インスタンス生成時のコールバック
                 createdCallback: {
                     value: function() {
                         var t = ownerDocument.querySelector('#${1:tag}');
@@ -3594,17 +3601,16 @@
                         this.shadowRoot.appendChild(clone);
                     }
                 },
-                // contentに子要素追加されたときのイベント
+                // インスタンスがドキュメントに追加された時のイベント
                 attachedCallback: {
                     value:function(){
-                        // 内部DOM取得
-                        //var dom = this.shadowRoot.querySelector("DOM");
-                        
+        
                         // DOMのイベント追加など
+                        //var dom = this.shadowRoot.querySelector("DOM");
                         
                     }
                 },
-                // contentから削除時のイベント
+                // インスタンスがドキュメントから削除された時のイベント
                 detachedCallback:{
                     value:function(){
                         // 内部DOM取得
@@ -3612,7 +3618,7 @@
             
                     }
                 },
-                // 属性値が変更されたときのイベント
+                // 属性値が変更、削除、追加されたときのイベント
                 attributeChangedCallback:{
                     value:function(){
                         // カスタム属性値取得
@@ -3640,6 +3646,18 @@
   mTime: 1472645815601
   text: |
         https://unsplash.it/${1:300}/${2:300}?random
+
+- trigger: sidebar
+  description: side bar
+  scope: html
+  mTime: 1473523873330
+  text: |
+        <div class="sideBar">
+            <div class="sideBar_section">
+                <div class="sideBar_item is-side-bar-item-selected">項目1</div>
+                <div class="sideBar_item">項目2</div>
+            </div>
+        </div>
 
 - trigger: c
   description: 文字色
@@ -3760,13 +3778,13 @@
         .border-radius(${1:1rem});
 
 - trigger: webfont
-  description: ウェブフォント
+  description: Webフォント
   scope: less
-  mTime: 1469946349063
+  mTime: 1473501719114
   text: |
         @font-face{
-            src: url('${1:novel}.ttf') format('truetype');
-            font-family: '${1:novel}';
+            src: url('${1:fontname}.ttf') format('truetype');
+            font-family: '${1:fontname}';
         }
 
 - trigger: "@txt-sha"

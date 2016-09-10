@@ -12,9 +12,11 @@ var stream;
 
 
 // NodeJS Server restart
-gulp.task('server', function() {
+gulp.task('server', function () {
     if (node) node.kill();
-    node = spawn('node', ['--debug','app.js'], {stdio: 'inherit'});
+    node = spawn('node', ['--debug', 'app.js'], {
+        stdio: 'inherit'
+    });
     node.on('close', function (code) {
         if (code === 8) {
             gulp.log('Error detected, waiting for changes...');
@@ -24,38 +26,39 @@ gulp.task('server', function() {
 
 
 // クライアント起動（ブラウザ,electron）
-gulp.task('init',['server'], function() {
+gulp.task('init', ['server'], function () {
     var result = "" + execSync('/usr/local/bin/brackets .');
 
     // Browser livereload
     stream = gulp.src('./')
         .pipe(webserver({
-        host: '0.0.0.0',
-        livereload: {
-            enable: true, 
-            filter: function(fileName) {                    
-                return true;
-            }
-        },
-        proxies: [
-            {
-                source: '/api',
-                target: 'http://localhost:3000'
+            host: '0.0.0.0',
+            https: false,
+            livereload: {
+                enable: true,
+                filter: function (fileName) {
+                    return true;
+                }
+            },
+            proxies: [
+                {
+                    source: '/api',
+                    target: 'http://localhost:3000'
             }
         ],
-        open: true
-    }));
+            open: true
+        }));
 });
 
 // clean up process when gulp end
-process.on('exit', function() {
+process.on('exit', function () {
     console.log("exit gulp");
     // stop gulp-webserver
-    if(stream) stream.emit('kill');
+    if (stream) stream.emit('kill');
     // stop NodeJS Server
     if (node) node.kill();
 });
 
-gulp.task('default',['init'], function () {
+gulp.task('default', ['init'], function () {
     gulp.watch(['./app.js'], ['server']);
-}); 
+});
