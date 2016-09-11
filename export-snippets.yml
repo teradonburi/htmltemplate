@@ -3659,6 +3659,62 @@
             </div>
         </div>
 
+- trigger: fb
+  description: facebook投稿
+  scope: html
+  mTime: 1473561930244
+  text: |
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '1105076299547459',
+                    xfbml: true,
+                    version: 'v2.7'
+                });
+            };
+        
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        
+        <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+        </div>
+
+- trigger: tweet
+  description: twitter投稿
+  scope: html
+  mTime: 1473561968006
+  text: |
+        <script>
+        function tweet() {
+            var s, url;
+            s = "投稿するテキスト";
+            url = document.location.href;
+        
+            if (s != "") {
+                if (s.length > 140) {
+                    //文字数制限
+                    alert("テキストが140字を超えています");
+                } else {
+                    //投稿画面を開く
+                    url = "http://twitter.com/share?url=" + escape(url) + "&text=" + s;
+                    window.open(url, "_blank", "width=600,height=300");
+                }
+            }
+        }
+        </script>
+        
+        <a href="javascript:tweet()"><img src="resource/image/twitter.png" alt="Send to Twitter" width="32" height="32" style="border-radius:0.3rem;"></a>
+        
+
 - trigger: c
   description: 文字色
   scope: less
